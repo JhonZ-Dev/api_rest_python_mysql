@@ -41,6 +41,16 @@ def update_item(item_id):
     return jsonify({"message": "Elemento actualizado correctamente"})
 
 # Uso: Envia una solicitud PUT a /api/items/{id} con los datos a actualizar en el cuerpo de la solicitud en formato JSON.
+# Ruta para eliminar un elemento de la tabla por su ID
+@app.route('/api/items/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM tu_tabla_mysql WHERE id = %s", (item_id,))
+    db.commit()
+    cursor.close()
+    return jsonify({"message": "Elemento eliminado correctamente"})
+
+# Uso: Envía una solicitud DELETE a /api/items/{id} para eliminar un elemento por su ID.
 
 
 if __name__ == '__main__':
