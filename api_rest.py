@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import mysql.connector
 
-app = Flask(__name)
-# Configura la conexión a la base de datos MySQL
+app = Flask(__name__)
 
+# Configura la conexión a la base de datos MySQL
 db = mysql.connector.connect(
     host="tu_host_mysql",
     user="tu_usuario_mysql",
@@ -19,6 +19,7 @@ def get_items():
     items = cursor.fetchall()
     cursor.close()
     return jsonify(items)
+
 # Ruta para agregar un nuevo elemento a la tabla
 @app.route('/api/items', methods=['POST'])
 def add_item():
@@ -28,7 +29,6 @@ def add_item():
     db.commit()
     cursor.close()
     return jsonify({"message": "Elemento agregado correctamente"})
-
 
 if __name__ == '__main__':
     app.run(debug=True)
