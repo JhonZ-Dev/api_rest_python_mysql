@@ -28,3 +28,7 @@ def add_item():
     db.commit()
     cursor.close()
     return jsonify({"message": "Elemento agregado correctamente"})
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
