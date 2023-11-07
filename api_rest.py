@@ -19,3 +19,12 @@ def get_items():
     items = cursor.fetchall()
     cursor.close()
     return jsonify(items)
+# Ruta para agregar un nuevo elemento a la tabla
+@app.route('/api/items', methods=['POST'])
+def add_item():
+    data = request.json
+    cursor = db.cursor()
+    cursor.execute("INSERT INTO tu_tabla_mysql (nombre, descripcion) VALUES (%s, %s)", (data['nombre'], data['descripcion']))
+    db.commit()
+    cursor.close()
+    return jsonify({"message": "Elemento agregado correctamente"})
