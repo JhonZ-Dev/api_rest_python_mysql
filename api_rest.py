@@ -30,5 +30,18 @@ def add_item():
     cursor.close()
     return jsonify({"message": "Elemento agregado correctamente"})
 
+# Ruta para actualizar un elemento en la tabla por su ID
+@app.route('/api/items/<int:item_id>', methods=['PUT'])
+def update_item(item_id):
+    data = request.json
+    cursor = db.cursor()
+    cursor.execute("UPDATE tu_tabla_mysql SET nombre = %s, descripcion = %s WHERE id = %s", (data['nombre'], data['descripcion'], item_id))
+    db.commit()
+    cursor.close()
+    return jsonify({"message": "Elemento actualizado correctamente"})
+
+# Uso: Envia una solicitud PUT a /api/items/{id} con los datos a actualizar en el cuerpo de la solicitud en formato JSON.
+
+
 if __name__ == '__main__':
     app.run(debug=True)
